@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Document for Vanilla JS</title>
+    </head>
+    <body>
+        <!-- <h1>Vanilla JS App</h1> -->
+        <span id="cnt">Total Clicks : 0</span>
+        <button id="btn">Click me</button>
+    </body>
+    <script>
+        let cnt = 0;
+        const btn = document.querySelector("#btn")
+        const span = document.querySelector("#cnt")
+        btn.addEventListener("click", () => {
+            cnt = cnt + 1
+            span.innerText = `Total Clicks : ${cnt}`
+        })
+    </script>
+</html>

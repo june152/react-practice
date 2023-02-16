@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8">
+        <title>React JS Converter</title>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.querySelector("#root")
+        function MinsToHours() {
+            const [values, setValues] = React.useState(0)
+            const [flip, setFlip] = React.useState(false)
+            function reset() {
+                setValues(0)
+            }
+            return (
+                <div>
+                    <h2>MinsToHours Converter</h2>
+                    <div>
+                        <label htmlFor="minutes">Minutes</label>
+                        <input
+                        value={flip ? values * 60 : values}
+                        id="minutes" placeholder="Minutes"
+                        type="number"
+                        disabled={flip}
+                        onChange = {(e) => {
+                            setValues(e.target.value)
+                        }} />
+                    </div>
+                    <div>
+                        <label htmlFor="hours">Hours</label>
+                        <input
+                        value={flip ? values : Math.round(values / 60)}
+                        id="hours"
+                        placeholder="Hours"
+                        type="number"
+                        disabled={!flip}
+                        onChange = {(e) => {
+                            setValues(e.target.value)
+                        }} />
+                    </div>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={() => {
+                        reset()
+                        setFlip((cur) => cur = !cur)
+                    }}>Fliper</button>
+                </div>
+            )
+        }
+        function KmToMiles() {
+            const [values, setValues] = React.useState(0)
+            const [flip, setFlip] = React.useState(false)
+            function reset() {
+                setValues(0)
+            }
+            return (
+                <div>
+                    <h2>KmToMiles Converter</h2>
+                    <div>
+                        <label htmlFor="km">Km</label>
+                        <input
+                        value={flip ? Math.round(values * 1.609) : values}
+                        id="km" placeholder="Km"
+                        type="number"
+                        disabled={flip}
+                        onChange = {(e) => {
+                            setValues(e.target.value)
+                        }} />
+                    </div>
+                    <div>
+                        <label htmlFor="miles">Miles</label>
+                        <input
+                        value={flip ? values : Math.round(values / 0.621)}
+                        id="miles"
+                        placeholder="Miles"
+                        type="number"
+                        disabled={!flip}
+                        onChange = {(e) => {
+                            setValues(e.target.value)
+                        }} />
+                    </div>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={() => {
+                        reset()
+                        setFlip((cur) => cur = !cur)
+                    }}>Fliper</button>
+                </div>
+            )
+        }
+        function App() {
+            const [idx, setIdx] = React.useState("n")
+            return (
+                <div>
+                    <h1>React Converter</h1>
+                    <select value={idx} onChange={(e) => {setIdx(e.target.value)}}>
+                        <option value="n">Select Converter</option>
+                        <option value="0">Mins To Hours</option>
+                        <option value="1">Km To Miles</option>
+                    </select>
+                    <hr />
+                    {idx === "n" ? "Select Converter" : null}
+                    {idx === "0" ? <MinsToHours /> : null}
+                    {idx === "1" ? <KmToMiles /> : null}
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, root)
+    </script>
+</html>

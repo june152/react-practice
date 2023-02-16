@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8">
+        <title>React Props Practice</title>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <script type="text/babel">
+        const root = document.querySelector("#root")
+        function Btn({content, onClick, fontSize}) {
+            return (
+                <button onClick={onClick} style={
+                    {
+                        backgroundColor: "tomato",
+                        color: "white",
+                        padding: "10px 20px",
+                        border: 0,
+                        borderRadius: 10,
+                        fontSize
+                    }
+                }>{content}</button>
+            )
+        }
+        Btn.propTypes = {
+            content:PropTypes.string,
+            fontSize:PropTypes.number,
+        }
+        const MemoBtn = React.memo(Btn)
+        function App() {
+            const [val, setVal] = React.useState("Save Changes")
+            return (
+                <div>
+                    <MemoBtn content={val} onClick= {() => {setVal("Revert Change")}} />
+                    <MemoBtn content="Confirm" fontSize={20} />
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, root)
+    </script>
+</html>
